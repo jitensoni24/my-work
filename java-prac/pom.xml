@@ -4,7 +4,7 @@
 
   <groupId>com.dtech.java8.sample</groupId>
   <artifactId>java-prac</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
 
   <name>java-prac</name>
