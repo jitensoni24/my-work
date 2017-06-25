@@ -11,12 +11,19 @@ public class CompareStr
     {
     	existingWay(Arrays.asList("cat", "hat", "mat"));
     	
-    	newWay(Arrays.asList("rat", "fat", "bat"));
+    	lambdaWay1(Arrays.asList("rat", "fat", "bat"));
 
-    	newWay2(Arrays.asList("man", "fan"));
+    	lambdaWay2(Arrays.asList("man", "fan"));
+    	
+    	lambdaWay3(Arrays.asList("jit", "kit"));
     }
 
-    private static void newWay2(List<String> asList) {
+    private static void lambdaWay3(List<String> asList) {
+    	Collections.sort(asList, (a,b) -> a.compareTo(b));
+    	asList.forEach(System.out::println);
+	}
+
+	private static void lambdaWay2(List<String> asList) {
 		asList.sort((a,b) -> a.compareTo(b));
 		asList.forEach(i -> System.out.println(i));
 	}
@@ -25,7 +32,7 @@ public class CompareStr
      * Compare using lambda expression *1
      * @param sortMe
      */
-	private static void newWay(List<String> sortMe) {
+	private static void lambdaWay1(List<String> sortMe) {
 		Collections.sort(sortMe, (String a, String b) -> {
 			return a.compareTo(b);
 		});
