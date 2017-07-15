@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+/Users/sonijit/git/my-work/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+136439902.index
+2561015048.index
+3627498231.index
+1332764091.index
+3392038569.index
+1845245041.index
