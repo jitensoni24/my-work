@@ -159,3 +159,9 @@ java.io.FileNotFoundException: no segments* file found in org.apache.lucene.stor
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-15 02:30:14.819
 !MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-15 02:33:03.692
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-15 02:33:03.705
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
