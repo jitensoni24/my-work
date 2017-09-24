@@ -1,0 +1,20 @@
+package com.dtech.soft.learn;
+
+public class ProcessStatus extends Thread{
+
+	String instance;
+	
+	public ProcessStatus(String instance) {
+		this.instance = instance;
+	}
+	
+	@Override
+	public void run() {
+		try {
+			System.out.println(instance);
+			this.sleep(1000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}
