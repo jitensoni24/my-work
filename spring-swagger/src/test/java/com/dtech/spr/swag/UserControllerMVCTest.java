@@ -10,7 +10,8 @@ import com.dtech.spr.swag.resources.User;
 import com.dtech.spr.swag.resources.UserBuilder;
 
 public class UserControllerMVCTest extends IntegrationTest {
-
+	
+	
 	@Test
 	public void shouldReturnAllUsers() throws Exception {
 		mockMvc.perform(get("/users"))
