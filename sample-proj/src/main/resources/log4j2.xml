@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+
+	<!--Configure properties here -->
+	<Properties>
+		<Property name="log-path">~/db/logs</Property>
+		<Property name="archive">${log-path}/archive</Property>
+
+	</Properties>
+
+	<!--Configure appenders here -->
+	<Appenders>
+		<Console name="Console-Appender" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm} [%t] %c{1} - %msg%n
+				</pattern>
+				>
+			</PatternLayout>
+		</Console>
+		<File name="File-Appender" fileName="${log-path}/sample-db.log">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+		</File>
+
+		<!-- Not in use yet 
+		<RollingFile name="RollingFile-Appender" fileName="${log-path}/rollingfile.log" filePattern="${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm} [%t] %c{1} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingFile> -->
+
+	</Appenders>
+
+	<!--Configure loggers here -->
+	<Loggers>
+		<Root level="error">
+			<AppenderRef ref="Console-Appender" />
+		</Root>
+		
+		<Logger name="com.bskyb.db" level="debug" additivity="false">
+			<AppenderRef ref="File-Appender" level="info" />
+		</Logger>
+
+		<Logger name="org.springframework" level="debug">
+			<AppenderRef ref="File-Appender" level="error" />
+		</Logger>
+
+		
+	</Loggers>
+</Configuration>
