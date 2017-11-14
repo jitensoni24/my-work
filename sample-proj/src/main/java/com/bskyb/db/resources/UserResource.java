@@ -38,7 +38,7 @@ public class UserResource {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Valid
-    private List<UserRoleResource> roles = new ArrayList<>();
+    private List<UserRoleResource> roles = new ArrayList<UserRoleResource>();
 
     public Boolean getActive() {
         return active;

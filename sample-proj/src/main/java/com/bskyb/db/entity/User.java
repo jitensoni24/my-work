@@ -38,7 +38,7 @@ public class User extends Identity {
             joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "role", "territory" })
     )
-    private Set<UserRole> roles = new HashSet<>();
+    private Set<UserRole> roles = new HashSet<UserRole>();
 
     public Boolean getActive() {
         return active;

@@ -10,12 +10,10 @@ import com.bskyb.db.exception.ForbiddenOperationException;
 import com.bskyb.db.exception.InvalidArgumentException;
 import com.bskyb.db.resources.UserResource;
 
-
 @Service
 public class UserService {
 
     public List<UserResource> getAll() {
-        
         return null;
     }
 
@@ -28,7 +26,6 @@ public class UserService {
         if (user != null) {
             return null;
         }
-
         throw new RuntimeException("I don't know");
     }
 
@@ -82,5 +79,4 @@ public class UserService {
 
         return null;
     }
-
 }

@@ -1,7 +1,5 @@
 package com.bskyb.db.controller;
 
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.times;
@@ -20,8 +18,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.bskyb.db.builder.UserBuilder;
+import com.bskyb.db.entity.User;
 import com.bskyb.db.exception.UserExistsException;
-import com.bskyb.db.resources.User;
+import com.bskyb.db.resources.UserResource;
 import com.bskyb.db.service.UserService;
 import com.github.javafaker.Faker;
 
@@ -42,10 +41,10 @@ public class UserControllerTest {
 	@Test
 	public void shouldReturnUsers() throws Exception {
 		// given
-		User user1 = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
-		User user2 = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
+		UserResource user1 = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
+		UserResource user2 = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
 
-		when(userService.getUsers()).thenReturn(Arrays.asList(user1, user2));
+		when(userService.getAll()).thenReturn(Arrays.asList(user1, user2));
 
 		// when
 		List<User> users = userController.getUsers();

@@ -1,6 +1,7 @@
 package com.bskyb.db.builder;
 
-import com.bskyb.db.resources.User;
+import com.bskyb.db.entity.User;
+import com.bskyb.db.resources.UserResource;
 
 public class UserBuilder {
 
@@ -31,7 +32,7 @@ public class UserBuilder {
 		return this;
 	}
 	
-	public User build() {
-		return new User(id, name, age);
+	public UserResource build() {
+		return new UserResource(id, name, age);
 	}
 }
