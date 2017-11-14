@@ -1,18 +1,43 @@
 package com.dtech.spr.swag.controller;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.dtech.spr.swag.resources.User;
+import com.dtech.spr.swag.service.UserService;
 
 @RestController
 public class UserController {
 
-	@RequestMapping("/users")
-	public List<String> getItems() throws Exception {
-		List<String> names = new ArrayList<String>();
-		names.add("a");
+	@Autowired
+	UserService userService;
+	
+	@GetMapping("/users")
+	public List<User> getUsers() throws Exception {
+		List<User> names = Arrays.asList(new User("a", 1), new User("b", 2));
 		return names;
 	}
+	
+	@PostMapping("/users")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public User postUser(User user) throws Exception {
+		System.out.println("user: " + user);
+		return userService.create(user);
+	}
+
+	
+	@PutMapping("/users")
+	@ResponseStatus(code = HttpStatus.ACCEPTED)
+	public void postUsers(List<User> users) throws Exception {
+		System.out.println("users: " + users);
+	}
+	
 }
