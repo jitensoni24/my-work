@@ -1,4 +1,4 @@
-package com.dtech.spr.swag;
+package com.dtech.spr.swag.config;
 
 import java.util.Properties;
 
@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -45,6 +48,19 @@ public class PersistenceJPAConfig {
 	// dataSource.setPassword( "tutorialmy5ql" );
 	// return dataSource;
 	// }
+	
+	@Bean
+	public DataSource dataSource() {
+
+		// no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
+		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+		EmbeddedDatabase db = builder
+			.setType(EmbeddedDatabaseType.HSQL) //.H2 or .DERBY
+//			.addScript("db/sql/create-db.sql")
+//			.addScript("db/sql/insert-data.sql")
+			.build();
+		return db;
+	}
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
