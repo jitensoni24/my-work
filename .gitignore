@@ -1,6 +1,5 @@
 Servers/
-*.metadata/
-*.recommenders/
+*.metadata
 *.java.hsp
 *.sonarj
 *.sw*
