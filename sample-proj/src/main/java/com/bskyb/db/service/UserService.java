@@ -2,23 +2,39 @@ package com.bskyb.db.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bskyb.db.entity.User;
 import com.bskyb.db.exception.ForbiddenOperationException;
 import com.bskyb.db.exception.InvalidArgumentException;
+import com.bskyb.db.mapper.BeanMapper;
+import com.bskyb.db.repository.UserRepository;
 import com.bskyb.db.resources.UserResource;
 
+@Transactional
 @Service
 public class UserService {
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BeanMapper mapper;
+    
     public List<UserResource> getAll() {
-        return null;
+        List<User> users = userRepository.getAll();
+        List<UserResource> userResources = mapper.mapAsList(users, UserResource.class);
+        return userResources;
     }
 
     public UserResource get(Long userId) {
-        return null;
+    	User user = userRepository.get(userId);
+        UserResource resource = mapper.map(user, UserResource.class);
+		return resource;
     }
 
     public UserResource whoAmI() {
@@ -26,11 +42,13 @@ public class UserService {
         if (user != null) {
             return null;
         }
+
         throw new RuntimeException("I don't know");
     }
 
     public UserResource create(UserResource userResource) {
-        return null;
+    	User user = userRepository.create(mapper.map(userResource, User.class));
+        return mapper.map(user, UserResource.class);
     }
 
 	public UserResource update(Long userId, UserResource userResource) {
@@ -56,8 +74,7 @@ public class UserService {
         if (contextUser.getId().equals(userId)) {
             throw new ForbiddenOperationException("user.constraint.self.remove");
         } else {
-            //repository delete
-        	
+        	userRepository.delete(userId);
         }
     }
 
@@ -79,4 +96,5 @@ public class UserService {
 
         return null;
     }
+
 }

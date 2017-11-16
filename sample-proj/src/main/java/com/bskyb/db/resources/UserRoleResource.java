@@ -8,32 +8,19 @@ public class UserRoleResource {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotNull(message = "user.validation.role.type.suffix")
-    private Role role;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotNull(message = "user.validation.role.territory.suffix")
-    private Territory territory;
+    private String role;
 
     public UserRoleResource() { }
 
-    public UserRoleResource(Role role, Territory territory) {
+    public UserRoleResource(String role) {
         this.role = role;
-        this.territory = territory;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
-    }
-
-    public Territory getTerritory() {
-        return territory;
-    }
-
-    public void setTerritory(Territory territory) {
-        this.territory = territory;
     }
 }

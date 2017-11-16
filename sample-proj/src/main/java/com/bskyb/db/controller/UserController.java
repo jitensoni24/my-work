@@ -27,7 +27,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<UserResource> getAll() {
-        return userService.getAll();
+        List<UserResource> all = userService.getAll();
+		return all;
     }
 
     @ResponseStatus(HttpStatus.OK)

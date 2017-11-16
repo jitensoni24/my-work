@@ -2,47 +2,28 @@ package com.bskyb.db.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import com.bskyb.db.resources.Role;
-import com.bskyb.db.resources.Territory;
 
 @Embeddable
 public class UserRole {
 
     @Column(name = "role", nullable = false, length = 16)
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @Column(name = "territory", nullable = false, length = 3)
-    @Enumerated(EnumType.STRING)
-    private Territory territory;
+    private String role;
 
     public UserRole() { }
 
-    public UserRole(Role role, Territory territory) {
+    public UserRole(String role) {
         this.role = role;
-        this.territory = territory;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
-    }
-
-    public Territory getTerritory() {
-        return territory;
-    }
-
-    public void setTerritory(Territory territory) {
-        this.territory = territory;
     }
 
     @Override
@@ -55,7 +36,6 @@ public class UserRole {
 
         return new EqualsBuilder()
                 .append(role, userRole.role)
-                .append(territory, userRole.territory)
                 .isEquals();
     }
 
@@ -63,7 +43,6 @@ public class UserRole {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(role)
-                .append(territory)
                 .toHashCode();
     }
 }

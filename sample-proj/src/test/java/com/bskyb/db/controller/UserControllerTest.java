@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,9 +19,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.bskyb.db.builder.UserBuilder;
-import com.bskyb.db.entity.User;
-import com.bskyb.db.exception.UserExistsException;
 import com.bskyb.db.resources.UserResource;
+import com.bskyb.db.resources.UserRoleResource;
 import com.bskyb.db.service.UserService;
 import com.github.javafaker.Faker;
 
@@ -41,78 +41,83 @@ public class UserControllerTest {
 	@Test
 	public void shouldReturnUsers() throws Exception {
 		// given
-		UserResource user1 = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
-		UserResource user2 = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
+		List<UserRoleResource> userRoles = new ArrayList<>();
+		userRoles.add(new UserRoleResource(fake.lorem().word()));
+		
+		UserResource user1 = UserBuilder.userResource()
+				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
+				.withResourceRoles(userRoles).build();
+		UserResource user2 = UserBuilder.userResource()
+				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
+				.withResourceRoles(userRoles).build();
 
 		when(userService.getAll()).thenReturn(Arrays.asList(user1, user2));
 
 		// when
-		List<User> users = userController.getUsers();
+		List<UserResource> users = userController.getAll();
 
 		// then
 		assertEquals(2, users.size());
 
 		// verify
-		verify(userService, times(1)).getUsers();
+		verify(userService, times(1)).getAll();
 	}
 	
 	@Test
 	public void shouldReturnUserWithGivenId() throws Exception {
 		// given
-		User expectedUser = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
-		when(userService.getUser(expectedUser.getId())).thenReturn(expectedUser);
+		Long userId = 1L;
+		UserResource expectedUser = UserBuilder.userResource()
+				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
+				.withResourceRoles(Arrays.asList(new UserRoleResource(fake.lorem().word()))).build();
+		
+		when(userService.get(userId)).thenReturn(expectedUser);
 
 		// when
-		User result = userController.getUser(expectedUser.getId());
+		UserResource result = userController.get(userId);
 
 		// then
 		assertNotNull(result);
-		assertEquals(expectedUser.getId(), result.getId());
-		assertEquals(expectedUser.getName(), result.getName());
+		assertEquals(expectedUser.getUsername(), result.getUsername());
 		
 		// verify
-		verify(userService, times(1)).getUser(expectedUser.getId());
+		verify(userService, times(1)).get(userId);
 	}
 	
 	@Test
 	public void shouldSaveNewUser() throws Exception {
 		// given
-		User expectedUser = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
-		when(userService.saveUser(expectedUser)).thenReturn(expectedUser);
+		UserResource expectedUser = UserBuilder.userResource()
+				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
+				.withResourceRoles(Arrays.asList(new UserRoleResource(fake.lorem().word()))).build();
+		
+		when(userService.create(expectedUser)).thenReturn(expectedUser);
 		
 		// when
-		User result = userController.saveUser(expectedUser);
+		UserResource result = userController.create(expectedUser);
 		
 		// then
 		assertNotNull(result);
-		assertEquals(expectedUser.getId(), result.getId());
-		assertEquals(expectedUser.getName(), result.getName());
+		assertEquals(expectedUser.getUsername(), result.getUsername());
 		
 		// verify
-		verify(userService, times(1)).saveUser(expectedUser);
+		verify(userService, times(1)).create(expectedUser);
 	}
 
-	
-	@Test(expected = UserExistsException.class)
-	public void shouldThrowUserExistsException_1() throws Exception {
-		// given
-		User expectedUser = UserBuilder.aUser().id(fake.number().numberBetween(1, 1000)).name(fake.name().name()).age(fake.number().numberBetween(1, 99)).build();
-		when(userService.saveUser(expectedUser)).thenThrow(new UserExistsException("User already exists"));
-		
-		// when
-		userController.saveUser(expectedUser);
-	}
-	
 	@Test
 	public void shouldDeleteUser() throws Exception {
 		// given
-		Integer id = 1;
+		Long userId = 1L;
 		
 		// when
-		userService.deleteUser(id);
+		userService.delete(userId);
 		
 		// verify
-		verify(userService, times(1)).deleteUser(id);
+		verify(userService, times(1)).delete(userId);
 	}
 	
 	

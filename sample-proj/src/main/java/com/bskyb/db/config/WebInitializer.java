@@ -30,6 +30,9 @@ public class WebInitializer implements WebApplicationInitializer {
 		context.register(ApplicationConfig.class);
 		context.setServletContext(servletContext);
 		
+		System.out.println(context.getEnvironment());
+		
+		
 		//Step 2 : creating and registering our dispatcher servlet
 		
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));

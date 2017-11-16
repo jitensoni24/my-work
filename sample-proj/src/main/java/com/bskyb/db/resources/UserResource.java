@@ -11,11 +11,10 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.bskyb.db.util.Regexp;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @SuppressWarnings("deprecation")
-public class UserResource {
+public class UserResource extends IdentityResource {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean active;
@@ -31,14 +30,14 @@ public class UserResource {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Email(message = "user.validation.email.suffix")
     private String email;
-
+    
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotNull(message = "user.validation.type.suffix")
-    private AccountType accountType;
+    private String accountType;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Valid
-    private List<UserRoleResource> roles = new ArrayList<UserRoleResource>();
+    private List<UserRoleResource> roles = new ArrayList<>();
 
     public Boolean getActive() {
         return active;
@@ -72,29 +71,35 @@ public class UserResource {
         this.email = email;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
-    }
+    public String getAccountType() {
+		return accountType;
+	}
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
 
-    @JsonIgnore
-    public boolean isLDAP() {
-        return accountType.equals(AccountType.LDAP);
-    }
-
-    @JsonIgnore
-    public boolean isNonLDAP() {
-        return accountType.equals(AccountType.NON_LDAP);
-    }
-
-    public List<UserRoleResource> getRoles() {
+	public List<UserRoleResource> getRoles() {
         return roles;
     }
 
     public void setRoles(List<UserRoleResource> roles) {
         this.roles = roles;
     }
+
+	public boolean isLDAP() {
+		if(accountType.equals("LDAP")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isNonLDAP() {
+		if( accountType == null || !accountType.equals("LDAP")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

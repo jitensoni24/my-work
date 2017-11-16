@@ -12,9 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.bskyb.db.resources.Role;
-import com.bskyb.db.resources.Territory;
-
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 public class User extends Identity {
@@ -36,9 +33,10 @@ public class User extends Identity {
     @CollectionTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "role", "territory" })
+            uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "role" })
     )
-    private Set<UserRole> roles = new HashSet<UserRole>();
+    
+    private Set<UserRole> roles = new HashSet<>();
 
     public Boolean getActive() {
         return active;
@@ -80,8 +78,8 @@ public class User extends Identity {
         this.roles = roles;
     }
 
-    public void addRole(Role role, Territory territory) {
-        this.roles.add(new UserRole(role, territory));
+    public void addRole(String role) {
+        this.roles.add(new UserRole(role));
     }
 
     public void addRole(UserRole role) {
