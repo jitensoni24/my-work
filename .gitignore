@@ -1,3 +1,4 @@
+*.recommenders/
 Servers/
 *.metadata
 *.java.hsp
