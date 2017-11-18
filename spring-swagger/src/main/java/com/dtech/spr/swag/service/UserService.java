@@ -1,16 +1,20 @@
 package com.dtech.spr.swag.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dtech.spr.swag.resources.User;
+import com.dtech.spr.swag.repository.UserRepository;
+import com.dtech.spr.swag.resources.UserResource;
 
 @Service
 public class UserService {
+	
+	@Autowired
+	UserRepository userRepository;
 
-	public User create(User user) {
-		System.out.println("done");
-		
-		return new User(user.getName(), user.getAge());
+	public UserResource create(UserResource user) {
+		UserRepository.
+		return new UserResource(user.getName(), user.getPassword());
 	}
 
 }
