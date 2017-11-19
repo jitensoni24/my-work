@@ -5,6 +5,7 @@ import com.dtech.spr.swag.entity.User;
 public class UserBuilder {
 	
 	private String name;
+	private String username;
 	private String password;
 	
 	private UserBuilder() {}
@@ -19,7 +20,8 @@ public class UserBuilder {
 	
 	public User buildUser() {
 		User user = new User();
-		user.setUserName(this.name);
+		user.setUserName(this.username);
+		user.setPassword(this.password);
 		return user;
 	}
 	
@@ -29,6 +31,10 @@ public class UserBuilder {
 	
 	public UserBuilder withName(String name) {
 		this.name = name;
+		return this;
+	}
+	public UserBuilder withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	public UserBuilder withPassword(String password) {

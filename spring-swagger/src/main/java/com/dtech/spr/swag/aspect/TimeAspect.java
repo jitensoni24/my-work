@@ -10,7 +10,7 @@ import org.springframework.util.StopWatch;
 @Component
 public class TimeAspect {
 
-	@Around("@annotation(com.dtech.spr.swag.aspect.LogExectionTime)")
+	@Around("@annotation(LogExectutionTime)")
 	public Object logTime(ProceedingJoinPoint jointPoint) throws Throwable {
 
 		StopWatch watch = new StopWatch("logTime");

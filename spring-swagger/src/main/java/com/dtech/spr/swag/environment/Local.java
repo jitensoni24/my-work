@@ -1,12 +1,15 @@
-package com.dtech.spr.swag.aspect;
+package com.dtech.spr.swag.environment;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.METHOD)
+import org.springframework.context.annotation.Profile;
+
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LogExectuionTime {
+@Profile("local")
+public @interface Local {
 
 }

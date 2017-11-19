@@ -1,5 +1,8 @@
 package com.dtech.spr.swag.integration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.dtech.spr.swag.config.SpringSwaggerApplication;
+import com.github.javafaker.Faker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configuration
@@ -24,10 +28,15 @@ import com.dtech.spr.swag.config.SpringSwaggerApplication;
 @ContextConfiguration(classes = {SpringSwaggerApplication.class})
 public abstract class IntegrationTest {
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Autowired
 	WebApplicationContext wac;
 	
 	MockMvc mockMvc;
+	
+	public static final Faker faker = new Faker();
 	
 	@Before
 	public void init() throws Exception {

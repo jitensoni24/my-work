@@ -3,11 +3,11 @@ package com.dtech.spr.swag.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dtech.spr.swag.entity.User;
@@ -15,7 +15,7 @@ import com.dtech.spr.swag.entity.User;
 @Repository
 public class UserRepository {
 
-	@Autowired
+	@PersistenceContext
 	EntityManager em;
 	
 	public List<User> getAll() {
@@ -32,6 +32,11 @@ public class UserRepository {
 	}
 	
 	public User create(User user) {
+		System.out.println(user);
 		return em.merge(user);
+	}
+
+	public User get(Long id) {
+		return em.find(User.class, id);
 	}
 }
