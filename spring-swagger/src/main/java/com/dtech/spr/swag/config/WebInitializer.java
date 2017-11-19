@@ -1,4 +1,4 @@
-package com.dtech.spr.swag;
+package com.dtech.spr.swag.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

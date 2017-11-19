@@ -1,10 +1,12 @@
 package com.dtech.spr.swag.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Table(name="user_", uniqueConstraints = { @UniqueConstraint(columnNames={"username"}) })
+@Entity
+@Table(name="user", uniqueConstraints = { @UniqueConstraint(columnNames={"username"}) })
 public class User extends Identity {
 
 	private static final long serialVersionUID = 1L;

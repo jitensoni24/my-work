@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dtech.spr.swag.resources.User;
+import com.dtech.spr.swag.resources.UserResource;
 import com.dtech.spr.swag.service.UserService;
 
 @RestController
@@ -21,14 +23,21 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/users")
-	public List<User> getUsers() throws Exception {
-		List<User> names = Arrays.asList(new User("a", 1), new User("b", 2));
+	public List<UserResource> getUsers() throws Exception {
+		List<UserResource> names = Arrays.asList(new UserResource("a", "a"), new UserResource("b", "a"));
 		return names;
 	}
+
+	@GetMapping("/users/{id}")
+	public UserResource getUser(@PathVariable Long id) throws Exception {
+		UserResource resource = userService.get(id);
+		return resource;
+	}
+	
 	
 	@PostMapping("/users")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public User postUser(User user) throws Exception {
+	public UserResource postUser(@RequestBody UserResource user) throws Exception {
 		System.out.println("user: " + user);
 		return userService.create(user);
 	}
@@ -36,7 +45,7 @@ public class UserController {
 	
 	@PutMapping("/users")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
-	public void postUsers(List<User> users) throws Exception {
+	public void postUsers(List<UserResource> users) throws Exception {
 		System.out.println("users: " + users);
 	}
 	

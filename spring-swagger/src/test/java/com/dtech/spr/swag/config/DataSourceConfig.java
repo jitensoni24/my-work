@@ -15,7 +15,6 @@ public class DataSourceConfig {
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
 				// Spring will assign default database name as “testdb” if we skip this setter
-				.setName("demoTestDb")
 //				.addScript("db/sql/create-db.sql")
 //				.addScript("db/sql/insert-data.sql")
 				.build();
