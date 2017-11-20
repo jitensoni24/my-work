@@ -30,7 +30,6 @@ public class UserMapper extends CustomMapper<User, UserResource> {
 	public void mapAtoB(User user, UserResource userResource, MappingContext context) {
 		super.mapAtoB(user, userResource, context);
 		userResource.setPassword(null);
-		userResource.setAccountType("");
 		userResource.setRoles(orikaBeanMapper.mapAsList(user.getRoles(), UserRoleResource.class));
 	}
 

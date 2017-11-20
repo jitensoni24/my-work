@@ -25,7 +25,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * repository component etc) in order to register with container (lookup path)
  */
 @ComponentScan(basePackages = "com.bskyb.db")
+
 @EnableAspectJAutoProxy
+
 public class ApplicationConfig extends WebMvcConfigurationSupport {
 
     @Override

@@ -10,19 +10,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import com.bskyb.db.builder.UserBuilder;
+import com.bskyb.db.builder.UserResourceBuilder;
 import com.bskyb.db.entity.User;
-import com.bskyb.db.entity.UserRole;
 import com.bskyb.db.resources.UserResource;
-import com.bskyb.db.resources.UserRoleResource;
 
 public class UserIntegrationTest extends IntegrationTest {
 	
@@ -33,30 +30,45 @@ public class UserIntegrationTest extends IntegrationTest {
 	@Test
 	public void shouldReturnUsers() throws Exception {
 		// Given
-		Set<UserRole> userRoles = new HashSet<>();
-		UserRole role = new UserRole(fake.lorem().word());
-		userRoles.add(role);
+		List<String> role = Arrays.asList(fake.lorem().word(), fake.lorem().word());
 		
-		User expectedUser = UserBuilder.userResource()
-				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
-				.withUserRoles(userRoles).buildUser();
+		User expectedUser = UserBuilder.user()
+				.withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withUserRoles(role).buildUser();
 		
         User user = em.merge(expectedUser);
-		
+
+        // when and then
 		mockMvc.perform(get("/users"))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
 		.andExpect(content().contentType("application/json;charset=UTF-8")).andExpect(jsonPath("$[0].id", equalTo(user.getId().toString())))
-        .andExpect(jsonPath("$[0].active", equalTo(user.getActive())))
         .andExpect(jsonPath("$[0].username", equalTo(user.getUsername())))
-        .andExpect(jsonPath("$[0].email", equalTo(user.getEmail())))
         .andExpect(jsonPath("$[0].password").doesNotExist())
-        .andExpect(jsonPath("$[0].accountType", equalTo("")))
-        .andExpect(jsonPath("$[0].roles.length()", equalTo(1)))
-        .andExpect(jsonPath("$[0].roles[0].role", equalTo(role.getRole())));
+        .andExpect(jsonPath("$[0].roles.length()", equalTo(2)))
+        .andExpect(jsonPath("$[0].roles[0].role", equalTo(role.get(0))));
 	}
+    @Test
+    public void shouldCreateUser() throws Exception {
+    	// given
+    	List<String> roles = Arrays.asList(fake.lorem().word(), fake.lorem().word());
+		
+		UserResource userResource = UserResourceBuilder.userResource()
+				.withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withResourceRoles(roles).build();
+		
+        String jsonPayload = getJsonPayload(userResource);
+
+        // when and then
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonPayload))
+		.andDo(print())
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.username", equalTo(userResource.getUsername())))
+        .andExpect(jsonPath("$.password").doesNotExist())
+        .andExpect(jsonPath("$.roles.length()", equalTo(2)))
+        .andExpect(jsonPath("$.roles[0].role", equalTo(roles.get(0))));
+    }
 	
 	/*
 	@Test
@@ -76,29 +88,4 @@ public class UserIntegrationTest extends IntegrationTest {
 	}*/
 
 
-    @Test
-    public void shouldCreateUser() throws Exception {
-    	// given
-		List<UserRoleResource> userRoles = new ArrayList<>();
-		UserRoleResource userRoleResource = new UserRoleResource(fake.lorem().word());
-		userRoles.add(userRoleResource);
-		
-		UserResource userResource = UserBuilder.userResource()
-				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
-				.withResourceRoles(userRoles).build();
-		
-        String jsonPayload = getJsonPayload(userResource);
-
-        // When
-        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonPayload))
-		.andDo(print())
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.active", equalTo(userResource.getActive())))
-        .andExpect(jsonPath("$.username", equalTo(userResource.getUsername())))
-        .andExpect(jsonPath("$.email", equalTo(userResource.getEmail())))
-        .andExpect(jsonPath("$.password").doesNotExist())
-        .andExpect(jsonPath("$.roles.length()", equalTo(1)))
-        .andExpect(jsonPath("$.roles[0].role", equalTo(userRoleResource.getRole())));
-    }
 }

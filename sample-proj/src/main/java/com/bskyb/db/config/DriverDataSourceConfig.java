@@ -1,11 +1,22 @@
 package com.bskyb.db.config;
 
-import org.springframework.context.annotation.Configuration;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import com.bskyb.db.environment.Dev;
+import com.bskyb.db.environment.Local;
+
+@Dev
+@Local
 @Configuration
 public class DriverDataSourceConfig {
 
-    /*@Autowired
+    @Autowired
     private Environment env;
 
     @Bean
@@ -17,6 +28,6 @@ public class DriverDataSourceConfig {
         ds.setPassword(env.getProperty("data.source.password"));
 
         return ds;
-    }*/
+    }
 
 }

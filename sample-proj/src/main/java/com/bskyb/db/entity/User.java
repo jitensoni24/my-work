@@ -16,17 +16,11 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 public class User extends Identity {
 
-    @Column(name = "active")
-    private Boolean active;
-
     @Column(name = "username", nullable = false)
     private String username;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
@@ -35,16 +29,7 @@ public class User extends Identity {
             joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "role" })
     )
-    
     private Set<UserRole> roles = new HashSet<>();
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 
     public String getUsername() {
         return username;
@@ -60,14 +45,6 @@ public class User extends Identity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Set<UserRole> getRoles() {

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,9 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.bskyb.db.builder.UserBuilder;
+import com.bskyb.db.builder.UserResourceBuilder;
 import com.bskyb.db.resources.UserResource;
-import com.bskyb.db.resources.UserRoleResource;
 import com.bskyb.db.service.UserService;
 import com.github.javafaker.Faker;
 
@@ -41,17 +39,14 @@ public class UserControllerTest {
 	@Test
 	public void shouldReturnUsers() throws Exception {
 		// given
-		List<UserRoleResource> userRoles = new ArrayList<>();
-		userRoles.add(new UserRoleResource(fake.lorem().word()));
+    	List<String> roles = Arrays.asList(fake.lorem().word(), fake.lorem().word());
 		
-		UserResource user1 = UserBuilder.userResource()
-				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
-				.withResourceRoles(userRoles).build();
-		UserResource user2 = UserBuilder.userResource()
-				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
-				.withResourceRoles(userRoles).build();
+		UserResource user1 = UserResourceBuilder.userResource()
+				.withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withResourceRoles(roles).build();
+		UserResource user2 = UserResourceBuilder.userResource()
+				.withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withResourceRoles(roles).build();
 
 		when(userService.getAll()).thenReturn(Arrays.asList(user1, user2));
 
@@ -69,10 +64,9 @@ public class UserControllerTest {
 	public void shouldReturnUserWithGivenId() throws Exception {
 		// given
 		Long userId = 1L;
-		UserResource expectedUser = UserBuilder.userResource()
-				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
-				.withResourceRoles(Arrays.asList(new UserRoleResource(fake.lorem().word()))).build();
+		UserResource expectedUser = UserResourceBuilder.userResource()
+				.withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withResourceRoles(Arrays.asList(fake.lorem().word())).build();
 		
 		when(userService.get(userId)).thenReturn(expectedUser);
 
@@ -90,10 +84,9 @@ public class UserControllerTest {
 	@Test
 	public void shouldSaveNewUser() throws Exception {
 		// given
-		UserResource expectedUser = UserBuilder.userResource()
-				.withActive(true).withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withEmail(fake.internet().emailAddress()).withAccountType(fake.lorem().word())
-				.withResourceRoles(Arrays.asList(new UserRoleResource(fake.lorem().word()))).build();
+		UserResource expectedUser = UserResourceBuilder.userResource()
+				.withUserName(fake.name().name()).withPassword(fake.internet().password())
+				.withResourceRoles(Arrays.asList(fake.lorem().word())).build();
 		
 		when(userService.create(expectedUser)).thenReturn(expectedUser);
 		

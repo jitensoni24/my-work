@@ -1,40 +1,30 @@
 package com.bskyb.db.builder;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.bskyb.db.entity.User;
 import com.bskyb.db.entity.UserRole;
-import com.bskyb.db.resources.UserResource;
-import com.bskyb.db.resources.UserRoleResource;
 
 public class UserBuilder {
 
-    private Boolean active;
-
+	private Long id;
+	
     private String username;
 
     private String password;
 
-    private String email;
-    
-    private String accountType;
-	
-    private List<UserRoleResource> reourceRoles = new ArrayList<>();
-    
     private Set<UserRole> userRoles = new HashSet<>();
 
-    
 	private UserBuilder() { }
 	
-	public static UserBuilder userResource() {
+	public static UserBuilder user() {
 		return new UserBuilder();
 	}
 
-	public UserBuilder withActive(Boolean active) {
-		this.active = active;
+	public UserBuilder withId(Long id) {
+		this.id = id;
 		return this;
 	}
 	
@@ -48,45 +38,22 @@ public class UserBuilder {
 		return this;
 	}
 	
-	public UserBuilder withEmail(String email) {
-		this.email = email;
-		return this;
-	}
-	
-	public UserBuilder withAccountType(String accountType) {
-		this.accountType = accountType;
-		return this;
-	}
-
-	public UserBuilder withResourceRoles(List<UserRoleResource> roles) {
-		this.reourceRoles = roles;
-		return this;
-	}
-	
-	public UserBuilder withUserRoles(Set<UserRole> roles) {	
-		this.userRoles = roles;
+	public UserBuilder withUserRoles(List<String> roles) {	
+		Set<UserRole> userRoles = new HashSet<>();
+		for (String string : roles) {
+			UserRole role = new UserRole(string);
+			userRoles.add(role);
+		}
+		this.userRoles = userRoles;
 		return this;
 	}
 
 	public User buildUser() {
 		User user = new User();
-		user.setActive(this.active);
+		user.setId(this.id);
 		user.setUsername(this.username);
 		user.setPassword(this.password);
-		user.setEmail(this.email);
 		user.setRoles(this.userRoles);
 		return user;
-	}
-	
-	public UserResource build() {
-		UserResource userResource = new UserResource();
-		userResource.setActive(this.active);
-		userResource.setUsername(this.username);
-		userResource.setPassword(this.password);
-		userResource.setEmail(this.email);
-		userResource.setRoles(this.reourceRoles);
-		userResource.setAccountType(this.accountType);
-		
-		return userResource;
-	}
+	}	
 }
