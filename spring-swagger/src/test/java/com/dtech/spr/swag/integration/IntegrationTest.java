@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.dtech.spr.swag.config.SpringSwaggerApplication;
 import com.github.javafaker.Faker;
 
+@ActiveProfiles("unit-test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configuration
 @WebAppConfiguration
