@@ -10,6 +10,4 @@ import org.springframework.context.annotation.Profile;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Profile({"local", "dev"})
-public @interface All {
-
-}
+public @interface All { }
