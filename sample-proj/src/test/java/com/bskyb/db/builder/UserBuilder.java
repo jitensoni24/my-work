@@ -9,8 +9,6 @@ import com.bskyb.db.entity.UserRole;
 
 public class UserBuilder {
 
-	private Long id;
-	
     private String username;
 
     private String password;
@@ -21,11 +19,6 @@ public class UserBuilder {
 	
 	public static UserBuilder user() {
 		return new UserBuilder();
-	}
-
-	public UserBuilder withId(Long id) {
-		this.id = id;
-		return this;
 	}
 	
 	public UserBuilder withUserName(String username) {
@@ -50,7 +43,6 @@ public class UserBuilder {
 
 	public User buildUser() {
 		User user = new User();
-		user.setId(this.id);
 		user.setUsername(this.username);
 		user.setPassword(this.password);
 		user.setRoles(this.userRoles);

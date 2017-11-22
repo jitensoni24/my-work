@@ -17,8 +17,7 @@ public class AddTask implements Runnable {
 		try {
 
 			for(int i = 0; i < 20; i++) {
-				long numberBetween = fake.number().numberBetween(1L, 10L);
-				user = UserBuilder.user().withId(numberBetween).withUserName(fake.name().username()).withPassword(fake.internet().password()).buildUser();
+				user = UserBuilder.user().withUserName(fake.name().username()).withPassword(fake.internet().password()).buildUser();
 				
 				manager.addEntry(user.getId() + user.getUsername(), user);
 				

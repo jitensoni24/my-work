@@ -30,13 +30,20 @@ public class UserRepository {
 		
 		return resultList;
 	}
-	
-	public User create(User user) {
-		System.out.println(user);
-		return em.merge(user);
-	}
 
 	public User get(Long id) {
 		return em.find(User.class, id);
+	}
+	
+	public User create(User user) {
+		return em.merge(user);
+	}
+
+	public void delete(Long userId) {
+		User u = get(userId);
+		
+		if(u != null) {
+			em.remove(u);
+		}
 	}
 }

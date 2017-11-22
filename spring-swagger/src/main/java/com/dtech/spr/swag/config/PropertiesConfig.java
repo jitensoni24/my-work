@@ -11,12 +11,12 @@ public class PropertiesConfig {
 
 	@Local
 	@Configuration
-	@PropertySource(value = {"classpath:/env/application.properties, classpath:/evn/local/persistence.properties"}, ignoreResourceNotFound = true)
+	@PropertySource(value = { "classpath:env/application.properties", "classpath:env/local/persistence.properties",})
 	static class LocalProps {}
 	
 	@Dev
 	@Configuration
-	@PropertySource(value = {"classpath:/env/application.properties, classpath:/evn/dev/persistence.properties"}, ignoreResourceNotFound = true)
+	@PropertySource(value = {"classpath:env/application.properties, classpath:evn/dev/persistence.properties"})
 	static class DevProps {}
 	
 }

@@ -23,36 +23,57 @@ import com.bskyb.db.resources.UserResource;
 
 public class UserIntegrationTest extends IntegrationTest {
 	
+	@Test
+	public void shouldReturnUsersFromTestDataScripts() throws Exception {
+		// when and then
+		mockMvc.perform(get("/users"))
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+		.andExpect(content().contentType("application/json;charset=UTF-8")).andExpect(jsonPath("$[0].id", equalTo(1)))
+        .andExpect(jsonPath("$[0].username", equalTo("NAME-1")))
+        .andExpect(jsonPath("$[0].password").doesNotExist())
+        .andExpect(jsonPath("$[0].roles.length()", equalTo(1)))
+        .andExpect(jsonPath("$[0].roles[0].role", equalTo("ROLE-1")));
+	}
+		
+	
 	/**
 	 * Get all users test
 	 * @throws Exception
 	 */
 	@Test
-	public void shouldReturnUsers() throws Exception {
+	public void shouldAddAndReturnAllUsers() throws Exception {
 		// Given
-		List<String> role = Arrays.asList(fake.lorem().word(), fake.lorem().word());
+		List<String> roles = Arrays.asList(fake.lorem().word(), fake.lorem().word());
+		
+		System.out.println(roles);
 		
 		User expectedUser = UserBuilder.user()
 				.withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withUserRoles(role).buildUser();
+				.withUserRoles(roles).buildUser();
 		
-        User user = em.merge(expectedUser);
+        em.merge(expectedUser);
 
         // when and then
 		mockMvc.perform(get("/users"))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
-		.andExpect(content().contentType("application/json;charset=UTF-8")).andExpect(jsonPath("$[0].id", equalTo(user.getId().toString())))
-        .andExpect(jsonPath("$[0].username", equalTo(user.getUsername())))
+		.andExpect(content().contentType("application/json;charset=UTF-8")).andExpect(jsonPath("$[0].id", equalTo(1)))
+        .andExpect(jsonPath("$[0].username", equalTo("NAME-1")))
         .andExpect(jsonPath("$[0].password").doesNotExist())
-        .andExpect(jsonPath("$[0].roles.length()", equalTo(2)))
-        .andExpect(jsonPath("$[0].roles[0].role", equalTo(role.get(0))));
+        .andExpect(jsonPath("$[0].roles.length()", equalTo(1)))
+        .andExpect(jsonPath("$[0].roles[0].role", equalTo("ROLE-1")));
 	}
+	
+	
     @Test
     public void shouldCreateUser() throws Exception {
     	// given
     	List<String> roles = Arrays.asList(fake.lorem().word(), fake.lorem().word());
+		
+    	System.out.println(roles);
 		
 		UserResource userResource = UserResourceBuilder.userResource()
 				.withUserName(fake.name().name()).withPassword(fake.internet().password())
