@@ -1,5 +1,7 @@
 package com.dtech.spr.swag.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,18 @@ public class UserService {
 
 	@Autowired
 	OrikaBeanMapper mapper;
-	
+
+	public List<UserResource> getAll() {
+		List<User> all = userRepository.getAll();
+		
+		return mapper.mapAsList(all, UserResource.class);
+	}
+
+	public UserResource get(Long id) {
+		User user = userRepository.get(id);
+		return mapper.map(user, UserResource.class);
+	}
+
 	public UserResource create(UserResource user) {
 
 		User entity = mapper.map(user, User.class);
@@ -28,9 +41,17 @@ public class UserService {
 		return resource;
 	}
 
-	public UserResource get(Long id) {
-		User user = userRepository.get(id);
-		return mapper.map(user, UserResource.class);
+	public List<UserResource> update(List<UserResource> users) {
+		// TODO to be implemented
+		return null;
 	}
-
+	
+	public List<UserResource> clone(List<UserResource> users) {
+		// TODO to be implemented
+		return null;
+	}
+	
+	public void delete(Long userId) {
+		userRepository.delete(userId);
+	}
 }

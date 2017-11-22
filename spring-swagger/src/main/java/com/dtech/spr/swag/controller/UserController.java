@@ -1,10 +1,10 @@
 package com.dtech.spr.swag.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +24,7 @@ public class UserController {
 	
 	@GetMapping("/users")
 	public List<UserResource> getUsers() throws Exception {
-		List<UserResource> names = Arrays.asList(new UserResource("a", "a"), new UserResource("b", "a"));
-		return names;
+		return userService.getAll();
 	}
 
 	@GetMapping("/users/{id}")
@@ -34,7 +33,6 @@ public class UserController {
 		return resource;
 	}
 	
-	
 	@PostMapping("/users")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public UserResource postUser(@RequestBody UserResource user) throws Exception {
@@ -42,11 +40,15 @@ public class UserController {
 		return userService.create(user);
 	}
 
-	
 	@PutMapping("/users")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
-	public void postUsers(List<UserResource> users) throws Exception {
-		System.out.println("users: " + users);
+	public List<UserResource> postUsers(List<UserResource> users) throws Exception {
+		return userService.update(users);
 	}
 	
+	@DeleteMapping("/users/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public void deleteUser(@PathVariable Long id) throws Exception {
+		userService.delete(id);
+	}
 }
