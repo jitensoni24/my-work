@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.dtech.spr.swag.config.SpringSwaggerApplication;
 import com.github.javafaker.Faker;
 
+@TestPropertySource(value = {"classpath:/env/unit-test/persistence.properties"})
 @ActiveProfiles("unit-test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configuration
