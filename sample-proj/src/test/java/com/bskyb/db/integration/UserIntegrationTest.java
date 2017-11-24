@@ -43,7 +43,7 @@ public class UserIntegrationTest extends IntegrationTest {
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
-		.andExpect(content().contentType("application/json;charset=UTF-8")).andExpect(jsonPath("$[0].id", equalTo(user.getId().toString())))
+		.andExpect(content().contentType("application/json;charset=UTF-8")).andExpect(jsonPath("$[0].id", equalTo(user.getId().intValue())))
         .andExpect(jsonPath("$[0].username", equalTo(user.getUsername())))
         .andExpect(jsonPath("$[0].password").doesNotExist())
         .andExpect(jsonPath("$[0].roles.length()", equalTo(2)))
@@ -67,7 +67,7 @@ public class UserIntegrationTest extends IntegrationTest {
         .andExpect(jsonPath("$.username", equalTo(userResource.getUsername())))
         .andExpect(jsonPath("$.password").doesNotExist())
         .andExpect(jsonPath("$.roles.length()", equalTo(2)))
-        .andExpect(jsonPath("$.roles[0].role", equalTo(roles.get(0))));
+        .andExpect(jsonPath("$.roles[0].role", equalTo(roles.get(1))));
     }
 	
 	/*

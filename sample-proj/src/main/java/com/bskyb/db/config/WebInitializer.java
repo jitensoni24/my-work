@@ -29,20 +29,21 @@ public class WebInitializer implements WebApplicationInitializer {
 		 * or annotation based web app context (reading beans from @configurations @component files)
 		 */
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		/* Not workin???
+		
+		/* Not working???
 		 * context.setConfigLocation("com.bskyb.db");
 		 * servletContext.addListener(new ContextLoaderListener());
 		*/
+		
 		context.register(ApplicationConfig.class);
-		context.setServletContext(servletContext);
 		
         String profile = loadProperties(context).getProperty("env.name", "local");
-
 		ConfigurableEnvironment env = context.getEnvironment();
-		
 		env.setActiveProfiles(profile);
+
+		context.setServletContext(servletContext);
 		
-		System.out.println(env.getActiveProfiles());
+		System.out.println(env.getActiveProfiles() + " : " + profile);
 		
 		//Step 2 : creating and registering our dispatcher servlet
 		
