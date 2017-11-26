@@ -8,5 +8,5 @@ import com.dtech.spr.swag.environment.UnitTest;
 @UnitTest
 @Configuration
 @PropertySource(name = "test-property", 
-				value = "classpath:/env/unit-test/persistence.properties", ignoreResourceNotFound = true)
+				value = "classpath:/env/unit-test/persistence.properties")
 public class TestPropertiesConfig { }

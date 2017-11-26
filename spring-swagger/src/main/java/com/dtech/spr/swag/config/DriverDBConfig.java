@@ -16,23 +16,17 @@ import com.dtech.spr.swag.environment.Local;
 @Configuration
 public class DriverDBConfig {
 
-	@Autowired 
+	@Autowired
 	Environment env;
-	
+
 	@Bean
 	public DataSource dataSource() {
-		/*DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName(env.getProperty("data.source.driver.class.name"));
-        ds.setUrl(env.getProperty("data.source.url"));
-        ds.setUsername(env.getProperty("data.source.username"));
-        ds.setPassword(env.getProperty("data.source.password"));*/
-		
 		DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://10.72.50.84:3306/localdb-01");
-        ds.setUsername("root");
-        ds.setPassword("rubb3rch1ck3n");
+		ds.setDriverClassName(env.getProperty("data.source.driver.class.name"));
+		ds.setUrl(env.getProperty("data.source.url"));
+		ds.setUsername(env.getProperty("data.source.username"));
+		ds.setPassword(env.getProperty("data.source.password"));
 
-        return ds;
+		return ds;
 	}
 }

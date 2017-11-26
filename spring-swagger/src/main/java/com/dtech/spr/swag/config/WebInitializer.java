@@ -14,27 +14,44 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+/*
+ * Replaces web.xml 
+ * Registers servlet and filters
+ * 
+ */
 public class WebInitializer implements WebApplicationInitializer {
 
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		//set the application context
+		
+		//Step 1 : 
+		/* 
+		 * create application context, this can be xml based web app context (reading beans from xml file) 
+		 * or annotation based web app context (reading beans from @configurations @component files)
+		 */
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		/* Not workin???
+		 * context.setConfigLocation("com.bskyb.db");
+		 * servletContext.addListener(new ContextLoaderListener());
+		*/
 		context.register(SpringSwaggerApplication.class);
+		context.setServletContext(servletContext);
 		
-		String profile = loadProperties(context).getProperty("env.name", "local");
+        String profile = loadProperties(context).getProperty("env.name", "dev");
 
-        ConfigurableEnvironment environment = context.getEnvironment();
-        environment.setActiveProfiles(profile);
-        
-        context.setServletContext(servletContext);
+		ConfigurableEnvironment env = context.getEnvironment();
 		
-		//set up the servlet
+		env.setActiveProfiles(profile);
+		
+		System.out.println(env.getActiveProfiles());
+		
+		//Step 2 : creating and registering our dispatcher servlet
+		
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
-		dispatcher.addMapping("/");
 		dispatcher.setLoadOnStartup(1);
+		dispatcher.addMapping("/");
 	}
-	
 
+    
     private Properties loadProperties(AnnotationConfigWebApplicationContext ctx) throws ServletException {
         String path = System.getProperty("file.environment.conf");
 
