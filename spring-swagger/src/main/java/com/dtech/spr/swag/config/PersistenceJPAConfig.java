@@ -40,7 +40,7 @@ public class PersistenceJPAConfig {
 	        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 	        properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql", "false"));
 	        properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql", "false"));
-	        properties.setProperty("hibernate.id.new_generator_mappings", "false");
+	        //properties.setProperty("hibernate.id.new_generator_mappings", "false");
 
 	        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 	        emf.setDataSource(ds);

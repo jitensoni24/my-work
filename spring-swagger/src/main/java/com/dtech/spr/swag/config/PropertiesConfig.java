@@ -16,7 +16,7 @@ public class PropertiesConfig {
 
 	@Dev
 	@Configuration
-	@PropertySource(value = { "classpath:/env/application.properties, classpath:/env/dev/persistence.properties" })
+	@PropertySource(value = { "classpath:/env/application.properties", "classpath:/env/dev/persistence.properties" })
 	static class DevProps {
 		
 	}
