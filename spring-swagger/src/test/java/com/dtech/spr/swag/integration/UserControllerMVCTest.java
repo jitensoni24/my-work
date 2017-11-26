@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
 
 import com.dtech.spr.swag.entity.User;
 import com.dtech.spr.swag.resources.UserBuilder;
@@ -23,8 +22,8 @@ public class UserControllerMVCTest extends IntegrationTest {
 	ObjectMapper mapper;
 
 	@Test
-	@Sql(scripts = "classpath:/env/unit-test/test-schema.sql")
-	@Sql("classpath:/env/unit-test/test-data.sql")
+//	@Sql(scripts = "classpath:/env/unit-test/test-schema.sql")
+//	@Sql("classpath:/env/unit-test/test-data.sql")
 	public void shouldReturnAllUsers() throws Exception {
 		mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
 	}
