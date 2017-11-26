@@ -8,7 +8,7 @@
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
-	<name>spring-swagger</name>
+	<name>ss</name>
 	<description>spring swagger demo project</description>
 
 	<properties>
@@ -156,7 +156,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>spring-swager</finalName>
+		<finalName>ss</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
