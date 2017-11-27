@@ -3,7 +3,7 @@
 
 	<!--Configure properties here -->
 	<Properties>
-		<Property name="log-path">~/db/logs</Property>
+		<Property name="log-path">/usr/local/share/sample/logs</Property>
 		<Property name="archive">${log-path}/archive</Property>
 
 	</Properties>
