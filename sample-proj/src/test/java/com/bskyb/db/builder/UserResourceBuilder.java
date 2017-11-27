@@ -1,12 +1,18 @@
 package com.bskyb.db.builder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.bskyb.db.enums.Type;
+import com.bskyb.db.resources.AddressResource;
 import com.bskyb.db.resources.UserResource;
 import com.bskyb.db.resources.UserRoleResource;
+import com.github.javafaker.Faker;
 
 public class UserResourceBuilder {
+
+	public static final Faker fake = Faker.instance();
 
 	private Long id;
 	
@@ -15,7 +21,9 @@ public class UserResourceBuilder {
     private String password;
 
     private List<UserRoleResource> reourceRoles = new ArrayList<>();
-    
+
+    private List<AddressResource> address = new ArrayList<>();
+
 	private UserResourceBuilder() { }
 	
 	public static UserResourceBuilder userResource() {
@@ -37,14 +45,13 @@ public class UserResourceBuilder {
 		return this;
 	}
 	
-	public UserResourceBuilder withResourceRoles(List<String> roles) {
-		
-		List<UserRoleResource> userRoles = new ArrayList<>();
-		for (String string : roles) {
-			UserRoleResource role = new UserRoleResource(string);
-			userRoles.add(role);
-		}
-		this.reourceRoles = userRoles;
+	public UserResourceBuilder withAddress() {
+		this.address = Arrays.asList(new AddressResource(Type.HOME, fake.address().streetAddress(), fake.address().city()));
+		return this;
+	}
+	
+	public UserResourceBuilder withResourceRoles() {
+		this.reourceRoles = Arrays.asList(new UserRoleResource(fake.lorem().word()), new UserRoleResource(fake.lorem().word()));;
 		return this;
 	}
 	
@@ -55,6 +62,7 @@ public class UserResourceBuilder {
 		userResource.setUsername(this.username);
 		userResource.setPassword(this.password);
 		userResource.setRoles(this.reourceRoles);
+		userResource.setAddress(this.address);
 		
 		return userResource;
 	}

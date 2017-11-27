@@ -52,7 +52,11 @@
 		<Logger name="org.springframework" level="debug">
 			<AppenderRef ref="File-Appender" level="error" />
 		</Logger>
-
+		
+		<!-- 
+		<Logger name="org.hibernate" level="debug">
+			<AppenderRef ref="File-Appender" level="error" />
+		</Logger> -->
 		
 	</Loggers>
 </Configuration>

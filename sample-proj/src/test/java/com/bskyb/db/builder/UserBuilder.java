@@ -1,13 +1,19 @@
 package com.bskyb.db.builder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.bskyb.db.entity.Address;
 import com.bskyb.db.entity.User;
 import com.bskyb.db.entity.UserRole;
+import com.bskyb.db.enums.Type;
+import com.github.javafaker.Faker;
 
 public class UserBuilder {
+	public static final Faker fake = Faker.instance();
 
     private String username;
 
@@ -15,6 +21,8 @@ public class UserBuilder {
 
     private Set<UserRole> userRoles = new HashSet<>();
 
+    private List<Address> address = new ArrayList<>();
+    
 	private UserBuilder() { }
 	
 	public static UserBuilder user() {
@@ -31,13 +39,13 @@ public class UserBuilder {
 		return this;
 	}
 	
-	public UserBuilder withUserRoles(List<String> roles) {	
-		Set<UserRole> userRoles = new HashSet<>();
-		for (String string : roles) {
-			UserRole role = new UserRole(string);
-			userRoles.add(role);
-		}
-		this.userRoles = userRoles;
+	public UserBuilder withUserRoles() {	
+		this.userRoles = new HashSet<>(Arrays.asList(new UserRole(fake.lorem().word()), new UserRole(fake.lorem().word())));
+		return this;
+	}
+	
+	public UserBuilder withAddress() {
+		this.address = Arrays.asList(new Address(Type.HOME, fake.address().streetAddress(), fake.address().city()));
 		return this;
 	}
 
@@ -46,6 +54,7 @@ public class UserBuilder {
 		user.setUsername(this.username);
 		user.setPassword(this.password);
 		user.setRoles(this.userRoles);
+		user.setAddress(this.address);
 		return user;
 	}	
 }

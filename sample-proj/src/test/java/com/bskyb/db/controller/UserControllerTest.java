@@ -39,14 +39,12 @@ public class UserControllerTest {
 	@Test
 	public void shouldReturnUsers() throws Exception {
 		// given
-    	List<String> roles = Arrays.asList(fake.lorem().word(), fake.lorem().word());
-		
-		UserResource user1 = UserResourceBuilder.userResource()
+    	UserResource user1 = UserResourceBuilder.userResource()
 				.withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withResourceRoles(roles).build();
+				.withResourceRoles().build();
 		UserResource user2 = UserResourceBuilder.userResource()
 				.withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withResourceRoles(roles).build();
+				.withResourceRoles().withAddress().build();
 
 		when(userService.getAll()).thenReturn(Arrays.asList(user1, user2));
 
@@ -66,7 +64,7 @@ public class UserControllerTest {
 		Long userId = 1L;
 		UserResource expectedUser = UserResourceBuilder.userResource()
 				.withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withResourceRoles(Arrays.asList(fake.lorem().word())).build();
+				.withResourceRoles().withAddress().build();
 		
 		when(userService.get(userId)).thenReturn(expectedUser);
 
@@ -86,7 +84,7 @@ public class UserControllerTest {
 		// given
 		UserResource expectedUser = UserResourceBuilder.userResource()
 				.withUserName(fake.name().name()).withPassword(fake.internet().password())
-				.withResourceRoles(Arrays.asList(fake.lorem().word())).build();
+				.withResourceRoles().withAddress().build();
 		
 		when(userService.create(expectedUser)).thenReturn(expectedUser);
 		
@@ -112,30 +110,6 @@ public class UserControllerTest {
 		// verify
 		verify(userService, times(1)).delete(userId);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
