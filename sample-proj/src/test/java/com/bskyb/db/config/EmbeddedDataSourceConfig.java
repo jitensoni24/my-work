@@ -17,8 +17,8 @@ public class EmbeddedDataSourceConfig {
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder()
 			.setType(EmbeddedDatabaseType.HSQL)
-			.addScripts("classpath:/env/unit-test/test-schema.sql")
-			.addScripts("classpath:/env/unit-test/test-data.sql")
+			/*.addScripts("classpath:/env/unit-test/test-schema.sql")
+			.addScripts("classpath:/env/unit-test/test-data.sql")*/
 			.build();
 	}
 

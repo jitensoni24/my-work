@@ -29,6 +29,9 @@ public class UserResource extends IdentityResource {
     @Valid
     private List<UserRoleResource> roles = new ArrayList<>();
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<AddressResource> address = new ArrayList<>();
+
     public Boolean getActive() {
         return active;
     }
@@ -60,4 +63,12 @@ public class UserResource extends IdentityResource {
     public void setRoles(List<UserRoleResource> roles) {
         this.roles = roles;
     }
+
+	public List<AddressResource> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<AddressResource> address) {
+		this.address = address;
+	}
 }

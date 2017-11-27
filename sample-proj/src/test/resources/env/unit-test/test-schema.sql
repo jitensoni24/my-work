@@ -17,6 +17,16 @@ CREATE TABLE user_role (
     PRIMARY KEY (user_id , role)
 );
 
+CREATE TABLE user_address (
+    user_id BIGINT NOT NULL,
+    type_ VARCHAR(32) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    city VARCHAR(120) NOT NULL,
+    PRIMARY KEY (type_, user_id)
+);
+
 ALTER TABLE user ADD CONSTRAINT UC_USER_USERNAME UNIQUE (username);
 
 ALTER TABLE user_role ADD CONSTRAINT FK_ROLE_USER_ID FOREIGN KEY (user_id) REFERENCES user(ID);
+
+ALTER TABLE user_address ADD CONSTRAINT FK_ADDRESS_USER_ID FOREIGN KEY (user_id) REFERENCES user(ID);
