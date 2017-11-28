@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /*
@@ -36,7 +37,7 @@ public class WebInitializer implements WebApplicationInitializer {
 		context.register(ApplicationConfig.class);
 		context.setServletContext(servletContext);
 		
-        String profile = loadProperties(context).getProperty("env.name", "local");
+        String profile = loadProperties(context).getProperty("env.name", "dev");
 
 		ConfigurableEnvironment env = context.getEnvironment();
 		
@@ -49,6 +50,8 @@ public class WebInitializer implements WebApplicationInitializer {
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/");
+		
+		servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain", context)).addMappingForUrlPatterns(null, true, "/*");
 	}
 
     

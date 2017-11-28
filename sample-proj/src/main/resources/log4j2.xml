@@ -53,6 +53,10 @@
 			<AppenderRef ref="File-Appender" level="error" />
 		</Logger>
 		
+		<Logger name="org.springframework.security.oauth2" level="info">
+			<AppenderRef ref="File-Appender" level="info" />
+		</Logger>
+		
 		<!-- 
 		<Logger name="org.hibernate" level="debug">
 			<AppenderRef ref="File-Appender" level="error" />

@@ -21,6 +21,9 @@ public class DriverDataSourceConfig {
 
     @Bean
     public DataSource dataSource() {
+
+    	System.out.println("---STEP 1--- DriverDataSourceConfig.datasource ");
+    	
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName(env.getProperty("data.source.driver.class.name"));
         ds.setUrl(env.getProperty("data.source.url"));

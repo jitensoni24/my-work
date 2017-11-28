@@ -15,22 +15,23 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<org.springframework-version>4.3.10.RELEASE</org.springframework-version>
+		<org.springframework-security-version>2.2.1.RELEASE</org.springframework-security-version>
 		<aspectj.version>1.8.11</aspectj.version>
 		<orika.version>1.5.2</orika.version>
 
 		<mysql.connector.version>5.1.37</mysql.connector.version>
 		<hibernate.version>5.2.12.Final</hibernate.version>
 		<hibernate.validator.version>6.0.2.Final</hibernate.validator.version>
-		
+
 		<junit.version>4.12</junit.version>
 		<hsqldb.version>2.4.0</hsqldb.version>
-		
+
 		<jackson.version>2.9.1</jackson.version>
 		<json.version>20160810</json.version>
-		
+
 		<apache.commons.io.version>2.5</apache.commons.io.version>
 		<apache.httpclient.version>4.5.3</apache.httpclient.version>
-		
+
 	</properties>
 
 	<dependencies>
@@ -44,6 +45,13 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${org.springframework-security-version}</version>
+		</dependency>
+
 
 		<!-- Servlet -->
 		<dependency>
@@ -191,14 +199,20 @@
 			<artifactId>httpclient</artifactId>
 			<version>${apache.httpclient.version}</version>
 		</dependency>
-		
-		<!-- Cache: https://mvnrepository.com/artifact/net.jodah/expiringmap -->
+
 		<dependency>
-		    <groupId>net.jodah</groupId>
-		    <artifactId>expiringmap</artifactId>
-		    <version>0.5.7</version>
+			<groupId>net.jodah</groupId>
+			<artifactId>expiringmap</artifactId>
+			<version>0.5.7</version>
 		</dependency>
-		
+
+		<!-- to remove startup warn message in logs --> 
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-simple</artifactId>
+		    <version>1.7.12</version>
+		</dependency>
+
 	</dependencies>
 
 
