@@ -1,4 +1,4 @@
-*.recommenders/
+~
 Servers/
 *.metadata
 *.java.hsp
@@ -40,5 +40,3 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
-/skyq-qms/
-/skyq-qms-content/
