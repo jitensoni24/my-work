@@ -36,7 +36,7 @@ public class WebInitializer implements WebApplicationInitializer {
 		context.register(SpringSwaggerApplication.class);
 		context.setServletContext(servletContext);
 		
-        String profile = loadProperties(context).getProperty("env.name", "dev");
+        String profile = loadProperties(context).getProperty("env.name", "local");
 
 		ConfigurableEnvironment env = context.getEnvironment();
 		

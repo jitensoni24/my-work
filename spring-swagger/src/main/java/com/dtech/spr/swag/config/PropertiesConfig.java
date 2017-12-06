@@ -4,15 +4,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import com.dtech.spr.swag.environment.Dev;
+import com.dtech.spr.swag.environment.Local;
 
 @Configuration
 public class PropertiesConfig {
 
-//	@Local
-//	@Configuration
-//	@PropertySource(value = { "classpath:/env/application.properties", "classpath:/env/local/persistence.properties" })
-//	static class LocalProps {
-//	}
+	@Local
+	@Configuration
+	@PropertySource(value = { "classpath:/env/application.properties", "classpath:/env/local/persistence.properties" })
+	static class LocalProps {
+	}
 
 	@Dev
 	@Configuration

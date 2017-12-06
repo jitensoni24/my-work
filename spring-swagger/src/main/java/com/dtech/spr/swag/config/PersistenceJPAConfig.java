@@ -22,52 +22,54 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class PersistenceJPAConfig {
 
-	 @Autowired
-	    private Environment env;
+	@Autowired
+	private Environment env;
 
-	    @Autowired
-	    private DataSource ds;
+	@Autowired
+	private DataSource ds;
 
-	    @Bean
-	    public JdbcTemplate jdbcTemplate() {
-	        return new JdbcTemplate(ds);
-	    }
+	@Bean
+	public JdbcTemplate jdbcTemplate() {
+		return new JdbcTemplate(ds);
+	}
 
-	    @Bean
-	    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-	        Properties properties = new Properties();
-	        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", ""));
-	        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-	        properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql", "false"));
-	        properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql", "false"));
-	        properties.setProperty("hibernate.id.new_generator_mappings", "false");
-	        properties.setProperty("hibernate.hbm2ddl.import_file", "sql/initial_data.sql");
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		Properties properties = new Properties();
+		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", ""));
+		properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+		properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql", "false"));
+		properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql", "false"));
+		// properties.setProperty("hibernate.id.new_generator_mappings",
+		// "false");
+		// properties.setProperty("hibernate.hbm2ddl.import_file",
+		// "sql/initial_data.sql");
 
-	        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-	        emf.setDataSource(ds);
-	        emf.setPackagesToScan(env.getProperty("entity.packages.to.scan"));
-	        emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-	        emf.setJpaProperties(properties);
+		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+		emf.setDataSource(ds);
+		emf.setPackagesToScan(env.getProperty("entity.packages.to.scan"));
+		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		emf.setJpaProperties(properties);
 
-	        return emf;
-	    }
+		return emf;
+	}
 
-	    @Bean
-	    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-	        JpaTransactionManager jtm = new JpaTransactionManager();
-	        jtm.setEntityManagerFactory(emf);
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+		JpaTransactionManager jtm = new JpaTransactionManager();
+		jtm.setEntityManagerFactory(emf);
 
-	        return jtm;
-	    }
+		return jtm;
+	}
 
-	    @Bean
-	    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-	        return new PersistenceExceptionTranslationPostProcessor();
-	    }
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
 
-	    @Bean
-	    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-	        return new PropertySourcesPlaceholderConfigurer();
-	    }
-	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+
 }

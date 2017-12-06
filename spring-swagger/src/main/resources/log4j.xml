@@ -10,13 +10,13 @@
 		</layout>
 	</appender>
 	
-	<logger name="org.springframework">
-		<level value="info" />
+	<logger name="org.springframework.core">
+		<level value="error" />
 	</logger>
 	
 	
 	<root>
-		<priority value="INFO" />
+		<priority value="error" />
 		<appender-ref ref="console" />
 	</root>
 	
