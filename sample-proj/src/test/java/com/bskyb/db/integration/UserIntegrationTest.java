@@ -66,7 +66,7 @@ public class UserIntegrationTest extends IntegrationTest {
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.username", equalTo(userResource.getUsername())))
         .andExpect(jsonPath("$.password").doesNotExist())
-        .andExpect(jsonPath("$.roles.length()", equalTo(2)))
+        .andExpect(jsonPath("$.roles", equalTo(2)))
         .andExpect(jsonPath("$.roles[0].role", equalTo(roles.get(1))));
     }
 	

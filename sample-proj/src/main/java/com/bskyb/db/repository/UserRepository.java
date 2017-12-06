@@ -22,7 +22,7 @@ public class UserRepository extends com.bskyb.db.repository.Repository<User> {
     public UserRepository() {
         super(User.class);
     }
-
+    
     @Override
     public User get(Long id) {
         try {
