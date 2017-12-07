@@ -71,6 +71,13 @@ public class AuthorRepository extends com.bskyb.db.repository.Repository<Author>
 		
 		return entityManager.createNativeQuery(query, Blog.class).setParameter("authorId", authorId).getResultList();
 	}
+	
+	public List<Book> getMaxPagesBook() {
+		
+		String query = "select * from book b, publicationbook pb, author a where b.id = pb.bookid and a.id = pb.authorid and b.pages = (select max(bb.pages) from book bb)";
+		
+		return null;
+	}
 
 	public Author get(String name) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
