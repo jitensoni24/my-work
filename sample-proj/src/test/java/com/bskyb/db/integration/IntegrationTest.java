@@ -25,8 +25,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.bskyb.db.build.AuthorBuilder;
 import com.bskyb.db.build.BookBuilder;
+import com.bskyb.db.builder.BlogBuilder;
 import com.bskyb.db.config.ApplicationConfig;
 import com.bskyb.db.entity.Author;
+import com.bskyb.db.entity.Blog;
 import com.bskyb.db.entity.Book;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,18 +77,30 @@ public abstract class IntegrationTest {
     
     public void dataInit() {
     	Author author1 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
-    	em.persist(author1);
-    	
     	Author author2 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
+    	Author author3 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
+
+    	em.persist(author1);
     	em.persist(author2);
+    	em.persist(author3);
     	
-		Book book1 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
+		Book book1 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(9).authors(Arrays.asList(author1)).build();
 		Book book2 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
 		Book book3 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author2)).build();
+		Book book4 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).build();
 		
 		em.merge(book1);
 		em.merge(book2);
 		em.merge(book3);
+		em.merge(book4);
+		
+		Blog blog1 = BlogBuilder.blog().title(fake.book().title()).version(fake.code().hashCode()).url(fake.internet().url()).authors(Arrays.asList(author1)).build();
+		Blog blog2 = BlogBuilder.blog().title(fake.book().title()).version(fake.code().hashCode()).url(fake.internet().url()).authors(Arrays.asList(author1)).build();
+		Blog blog3 = BlogBuilder.blog().title(fake.book().title()).version(fake.code().hashCode()).url(fake.internet().url()).authors(Arrays.asList(author3)).build();
+
+		em.merge(blog1);
+		em.merge(blog2);
+		em.merge(blog3);
 		
 		em.flush();
     }

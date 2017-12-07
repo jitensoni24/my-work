@@ -31,15 +31,21 @@ public class AuthorIntegrationTest extends IntegrationTest {
 		
 		mockMvc.perform(get("/author/book/" + a1.getId() ))
 			.andDo(print())
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$", hasSize(2)))
+			.andExpect(jsonPath("$[0].pages").exists());
 	}
 	
-	@Ignore
 	@Test
 	public void getAllAuthorBlogs() throws Exception {
-		mockMvc.perform(get("/author/blog/") )
+		Author a1 = em.find(Author.class, 3L);
+		System.out.println(a1.getName());
+		System.out.println(a1.getId());
+		
+		mockMvc.perform(get("/author/blog/" + a1.getId()) )
 			.andDo(print())
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[0].url").exists());
 	}
 	
 	@Ignore

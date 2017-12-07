@@ -41,15 +41,15 @@ public class AuthorController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/book/{authorid}", method = RequestMethod.GET)
-    public List<Book> getAllAuthorBooks(Long authorId) {
+    @RequestMapping(value = "/book/{authorId}", method = RequestMethod.GET)
+    public List<Book> getAllAuthorBooks(@PathVariable Long authorId) {
         List<Book> all = authorService.getAllAuthorBooks(authorId);
 		return all;
     }
     
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/blog/{authorid}", method = RequestMethod.GET)
-    public List<Blog> getAllAuthorBlogs(Long authorId) {
+    @RequestMapping(value = "/blog/{authorId}", method = RequestMethod.GET)
+    public List<Blog> getAllAuthorBlogs(@PathVariable Long authorId) {
         List<Blog> all = authorService.getAllAuthorBlogs(authorId);
 		return all;
     }
