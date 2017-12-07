@@ -13,7 +13,6 @@ import com.bskyb.db.entity.Blog;
 import com.bskyb.db.entity.Book;
 import com.bskyb.db.repository.AuthorRepository;
 
-@Transactional
 @Service
 public class AuthorService {
 
@@ -40,16 +39,24 @@ public class AuthorService {
 		return authorRepository.get(name);
 	}
 
+	@Transactional
 	public Author create(@Valid Author author) {
 		return authorRepository.create(author);
 	}
 
+	@Transactional
 	public Author update(Long id, @Valid Author author) {
 		return authorRepository.update(id, author);
 	}
 
+	@Transactional
 	public void delete(Long id) {
 		authorRepository.delete(id);
+	}
+
+	@Transactional
+	public void initdata() {
+		authorRepository.dataInit();
 	}
 	
 }

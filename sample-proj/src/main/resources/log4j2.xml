@@ -3,7 +3,7 @@
 
 	<!--Configure properties here -->
 	<Properties>
-		<Property name="log-path">~/db/logs</Property>
+		<Property name="log-path">/Users/sonijit/devenv/logs/sample.log</Property>
 		<Property name="archive">${log-path}/archive</Property>
 
 	</Properties>

@@ -1,5 +1,7 @@
 package com.bskyb.db.integration;
 
+import java.util.Arrays;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -21,7 +23,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.bskyb.db.build.AuthorBuilder;
+import com.bskyb.db.build.BookBuilder;
 import com.bskyb.db.config.ApplicationConfig;
+import com.bskyb.db.entity.Author;
+import com.bskyb.db.entity.Book;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
@@ -53,6 +59,8 @@ public abstract class IntegrationTest {
 	@Before
 	public void init() throws Exception {
 		 mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		 
+		 dataInit();
 	}
 	
 	@Test
@@ -63,5 +71,23 @@ public abstract class IntegrationTest {
 
     public String getJsonPayload(Object object) throws JsonProcessingException {
         return mapper.writeValueAsString(object);
+    }
+    
+    public void dataInit() {
+    	Author author1 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
+    	em.persist(author1);
+    	
+    	Author author2 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
+    	em.persist(author2);
+    	
+		Book book1 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
+		Book book2 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
+		Book book3 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author2)).build();
+		
+		em.merge(book1);
+		em.merge(book2);
+		em.merge(book3);
+		
+		em.flush();
     }
 }

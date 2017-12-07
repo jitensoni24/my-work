@@ -6,28 +6,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.Set;
-
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
-import com.bskyb.db.builder.AuthorBuilder;
-import com.bskyb.db.builder.BookBuilder;
 import com.bskyb.db.entity.Author;
-import com.bskyb.db.entity.Book;
 
 public class AuthorIntegrationTest extends IntegrationTest {
 
 	@Test
 	public void getAll() throws Exception {
-		
-		Author author1 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
-		Author author2 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
-		
-		em.merge(author1);
-		em.merge(author2);
-		
 		
 		mockMvc.perform(get("/author"))
 			.andDo(print())
@@ -37,40 +25,16 @@ public class AuthorIntegrationTest extends IntegrationTest {
 	
 	@Test
 	public void getAllAuthorBooks() throws Exception {
-		Author author1 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
-		Author author2 = AuthorBuilder.author().name(fake.name().name()).email(fake.internet().emailAddress()).build();
-		/*
-		Author expected1 = em.merge(author1);
-		Author expected2 = em.merge(author2);*/
+		Author a1 = em.find(Author.class, 1L);
+		System.out.println(a1.getName());
+		System.out.println(a1.getId());
 		
-		Book book1 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
-		Book book2 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
-		Book book3 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author2)).build();
-		
-		Author dbAuthor1 = null;
-		
-		Set<Author> authors_1 = book1.getAuthors();
-		for (Author author : authors_1) {
-			dbAuthor1 = em.merge(author);
-		}
-		
-		Set<Author> authors_2 = book3.getAuthors();
-		for (Author author : authors_2) {
-			em.merge(author);
-		}
-		
-		Book merge = em.merge(book1);
-		em.merge(book2);
-		
-		em.flush();
-		
-		System.out.println(dbAuthor1.getId());
-		
-		mockMvc.perform(get("/author/book/" + dbAuthor1.getId() ))
+		mockMvc.perform(get("/author/book/" + a1.getId() ))
 			.andDo(print())
 			.andExpect(status().isOk());
 	}
 	
+	@Ignore
 	@Test
 	public void getAllAuthorBlogs() throws Exception {
 		mockMvc.perform(get("/author/blog/") )
@@ -78,6 +42,7 @@ public class AuthorIntegrationTest extends IntegrationTest {
 			.andExpect(status().isOk());
 	}
 	
+	@Ignore
 	@Test
 	public void getAllAuthorPublications() throws Exception {
 		mockMvc.perform(get("/author/publications"))

@@ -25,10 +25,17 @@ public class AuthorController {
 
     @Autowired
     private AuthorService authorService;
+    
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    public void initdata() {
+    	authorService.initdata();
+    }
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
     public List<Author> getAll() {
+    	
         List<Author> all = authorService.getAll();
 		return all;
     }
@@ -76,5 +83,6 @@ public class AuthorController {
     public void delete(@PathVariable Long id) {
         authorService.delete(id);
     }
-	
+
+    
 }

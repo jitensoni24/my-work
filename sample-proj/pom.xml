@@ -226,8 +226,9 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+						        
 			        <compilerArguments>
-			            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+			        	<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
 			        </compilerArguments>
 				</configuration>
 			</plugin>
