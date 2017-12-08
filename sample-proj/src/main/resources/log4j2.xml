@@ -3,9 +3,7 @@
 
 	<!--Configure properties here -->
 	<Properties>
-		<Property name="log-path">~/devenv/logs/sample.log</Property>
-		<Property name="archive">${log-path}/archive</Property>
-
+		<!-- <Property name="filepath">target/logs</Property> -->
 	</Properties>
 
 	<!--Configure appenders here -->
@@ -18,13 +16,13 @@
 				>
 			</PatternLayout>
 		</Console>
-		<File name="File-Appender" fileName="${log-path}/sample-db.log">
+		<!-- <File name="File-Appender" fileName="sample-db.log">
 			<PatternLayout>
 				<pattern>
 					[%-5level] %d{yyyy-MM-dd HH:mm} [%t] %c{1} - %msg%n
 				</pattern>
 			</PatternLayout>
-		</File>
+		</File> -->
 
 		<!-- Not in use yet 
 		<RollingFile name="RollingFile-Appender" fileName="${log-path}/rollingfile.log" filePattern="${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz">
@@ -53,7 +51,7 @@
 			<AppenderRef ref="File-Appender" level="error" />
 		</Logger>
 
-		<Logger name="org.hibernate" level="debug">
+		<Logger name="org.hibernate" level="info">
 			<AppenderRef ref="File-Appender" level="error" />
 		</Logger>
 
