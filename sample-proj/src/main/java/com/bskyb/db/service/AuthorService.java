@@ -22,14 +22,6 @@ public class AuthorService {
 	public List<Author> getAll() {
 		return authorRepository.getAll();
 	}
-	
-	public List<Book> getAllAuthorBooks(Long authorId) {
-		return authorRepository.getAllAuthorBooks(authorId);
-	}
-
-	public List<Blog> getAllAuthorBlogs(Long authorId) {
-		return authorRepository.getAllAuthorBlogs(authorId);
-	}
 
 	public Author get(Long id) {
 		return authorRepository.get(id);
@@ -59,4 +51,19 @@ public class AuthorService {
 		authorRepository.dataInit();
 	}
 	
+	/* BOOK */
+	
+	public List<Book> getAllAuthorBooks(Long authorId) {
+		return authorRepository.getAllAuthorBooks(authorId);
+	}
+	
+	public List<Book> getBookWithMaxPages() {
+		return authorRepository.getBookWithMaxPages();
+	}
+	
+	/* BLOG */
+
+	public List<Blog> getAllAuthorBlogs(Long authorId) {
+		return authorRepository.getAllAuthorBlogs(authorId);
+	}
 }

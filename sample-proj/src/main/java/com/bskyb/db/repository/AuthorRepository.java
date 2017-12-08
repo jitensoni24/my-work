@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.SetJoin;
@@ -72,11 +73,26 @@ public class AuthorRepository extends com.bskyb.db.repository.Repository<Author>
 		return entityManager.createNativeQuery(query, Blog.class).setParameter("authorId", authorId).getResultList();
 	}
 	
-	public List<Book> getMaxPagesBook() {
+	public List<Book> getBookWithMaxPages() {
 		
-		String query = "select * from book b, publicationbook pb, author a where b.id = pb.bookid and a.id = pb.authorid and b.pages = (select max(bb.pages) from book bb)";
+		//String query = "select * from book b where b.pages = (select max(bb.pages) from book bb)";
 		
-		return null;
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Book> bookQuery = builder.createQuery(Book.class);
+		Root<Book> root = bookQuery.from(Book.class);
+
+		CriteriaQuery<Integer> subquery = builder.createQuery(Integer.class);
+		Root<Book> subRoot = subquery.from(Book.class);
+		Path<Integer> x = subRoot.get(Book_.pages);
+		subquery.select(builder.max(x));
+		Integer singleResult = entityManager.createQuery(subquery).getSingleResult();
+		
+		bookQuery.where(builder.equal(root.get(Book_.pages), singleResult));
+		
+		List<Book> resultList = entityManager.createQuery(bookQuery).getResultList();
+		
+		return resultList;
+		
 	}
 
 	public Author get(String name) {

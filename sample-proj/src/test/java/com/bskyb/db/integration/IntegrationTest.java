@@ -85,9 +85,9 @@ public abstract class IntegrationTest {
     	em.persist(author3);
     	
 		Book book1 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(9).authors(Arrays.asList(author1)).build();
-		Book book2 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author1)).build();
-		Book book3 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).authors(Arrays.asList(author2)).build();
-		Book book4 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.idNumber().hashCode()).build();
+		Book book2 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.number().randomDigit()).authors(Arrays.asList(author1)).build();
+		Book book3 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.number().randomDigit()).authors(Arrays.asList(author2)).build();
+		Book book4 = BookBuilder.book().title(fake.book().title()).version(fake.code().hashCode()).pages(fake.number().randomDigit()).build();
 		
 		em.merge(book1);
 		em.merge(book2);

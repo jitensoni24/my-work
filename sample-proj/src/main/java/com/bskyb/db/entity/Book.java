@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,10 +19,10 @@ public class Book extends Publication {
 	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(name = "publicationbook", 
 		joinColumns = { 
-			@JoinColumn(name = "bookid", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BOOK_ID")) 
+			@JoinColumn(name = "bookid", referencedColumnName = "id") 
 		},
 		inverseJoinColumns = { 
-			@JoinColumn(name = "authorid", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BOOK_AUTHOR_ID"))
+			@JoinColumn(name = "authorid", referencedColumnName = "id")
 		}
 	)
 	private Set<Author> authors = new HashSet<>();

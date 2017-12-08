@@ -3,7 +3,7 @@
 
 	<!--Configure properties here -->
 	<Properties>
-		<Property name="log-path">/Users/sonijit/devenv/logs/sample.log</Property>
+		<Property name="log-path">~/devenv/logs/sample.log</Property>
 		<Property name="archive">${log-path}/archive</Property>
 
 	</Properties>
@@ -50,6 +50,10 @@
 		</Logger>
 
 		<Logger name="org.springframework" level="debug">
+			<AppenderRef ref="File-Appender" level="error" />
+		</Logger>
+
+		<Logger name="org.hibernate" level="debug">
 			<AppenderRef ref="File-Appender" level="error" />
 		</Logger>
 

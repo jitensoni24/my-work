@@ -39,21 +39,7 @@ public class AuthorController {
         List<Author> all = authorService.getAll();
 		return all;
     }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/book/{authorId}", method = RequestMethod.GET)
-    public List<Book> getAllAuthorBooks(@PathVariable Long authorId) {
-        List<Book> all = authorService.getAllAuthorBooks(authorId);
-		return all;
-    }
     
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/blog/{authorId}", method = RequestMethod.GET)
-    public List<Blog> getAllAuthorBlogs(@PathVariable Long authorId) {
-        List<Blog> all = authorService.getAllAuthorBlogs(authorId);
-		return all;
-    }
-
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Author get(@PathVariable Long id) {
@@ -82,6 +68,32 @@ public class AuthorController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         authorService.delete(id);
+    }
+
+    /* BOOK */
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/book/{authorId}", method = RequestMethod.GET)
+    public List<Book> getAllAuthorBooks(@PathVariable Long authorId) {
+        List<Book> all = authorService.getAllAuthorBooks(authorId);
+		return all;
+    }
+    
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/book/max/pages", method = RequestMethod.GET)
+    public List<Book>  getBookWithMaxPages() {
+    	List<Book> books = authorService.getBookWithMaxPages();
+		return books;
+    }
+    
+    
+
+    /* BLOG */
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/blog/{authorId}", method = RequestMethod.GET)
+    public List<Blog> getAllAuthorBlogs(@PathVariable Long authorId) {
+        List<Blog> all = authorService.getAllAuthorBlogs(authorId);
+		return all;
     }
 
     

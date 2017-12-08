@@ -1,5 +1,6 @@
 package com.bskyb.db.integration;
 
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -46,6 +47,15 @@ public class AuthorIntegrationTest extends IntegrationTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$[0].url").exists());
+	}
+	
+	@Test
+	public void getBookWithMaxPages() throws Exception {
+		
+		mockMvc.perform(get("/author/book/max/pages"))
+			.andDo(print())
+			.andExpect(status().is(HttpStatus.OK.value()))
+			.andExpect(jsonPath("$.size()", greaterThanOrEqualTo(1)));
 	}
 	
 	@Ignore
