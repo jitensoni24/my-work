@@ -2,8 +2,8 @@ package com.bskyb.db.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -13,7 +13,7 @@ public class Department extends Identity {
 
 	private String name;
 	
-	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
 	private List<Person> persons;
 
 	public String getName() {
@@ -31,5 +31,9 @@ public class Department extends Identity {
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Department [name=" + name + "]";
+	}
 }

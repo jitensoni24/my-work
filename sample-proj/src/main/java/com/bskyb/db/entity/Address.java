@@ -41,4 +41,8 @@ public class Address extends Identity {
 		this.person = person;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [doorNo=" + doorNo + ", city=" + city + "]";
+	}
 }

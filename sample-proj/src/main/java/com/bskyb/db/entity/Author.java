@@ -26,4 +26,10 @@ public class Author extends Identity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public String toString() {
+		return "Author [name=" + name + ", email=" + email + "]";
+	}
+	
 }

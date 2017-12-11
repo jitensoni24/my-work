@@ -11,8 +11,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
-import com.bskyb.db.entity.Author;
-
 public class AuthorIntegrationTest extends IntegrationTest {
 
 	@Test
@@ -21,16 +19,16 @@ public class AuthorIntegrationTest extends IntegrationTest {
 		mockMvc.perform(get("/author"))
 			.andDo(print())
 			.andExpect(status().is(HttpStatus.OK.value()))
-			.andExpect(jsonPath("$", hasSize(2)));
+			.andExpect(jsonPath("$", hasSize(7)));
 	}
 	
 	@Test
 	public void getAllAuthorBooks() throws Exception {
-		Author a1 = em.find(Author.class, 1L);
-		System.out.println(a1.getName());
-		System.out.println(a1.getId());
 		
-		mockMvc.perform(get("/author/book/" + a1.getId() ))
+		System.out.println(author.getId());
+		System.out.println(author.getName());
+		
+		mockMvc.perform(get("/author/book/" + author.getId() ))
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$", hasSize(2)))
@@ -39,11 +37,10 @@ public class AuthorIntegrationTest extends IntegrationTest {
 	
 	@Test
 	public void getAllAuthorBlogs() throws Exception {
-		Author a1 = em.find(Author.class, 3L);
-		System.out.println(a1.getName());
-		System.out.println(a1.getId());
+		System.out.println(author.getName());
+		System.out.println(author.getId());
 		
-		mockMvc.perform(get("/author/blog/" + a1.getId()) )
+		mockMvc.perform(get("/author/blog/" + author.getId()) )
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$[0].url").exists());

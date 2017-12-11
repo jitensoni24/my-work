@@ -3,8 +3,9 @@ package com.bskyb.db.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -16,13 +17,13 @@ public class Blog extends Publication {
 
 	private String url;
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "publicationblog", 
 		joinColumns = { 
-			@JoinColumn(name = "blogid", referencedColumnName = "id") 
+			@JoinColumn(name = "blogid", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BLOG_ID")) 
 		},
 		inverseJoinColumns = { 
-			@JoinColumn(name = "authorid", referencedColumnName = "id")
+			@JoinColumn(name = "authorid", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BLOG_AUTHOR_ID"))
 		}
 	)
 	private Set<Author> authors = new HashSet<>();

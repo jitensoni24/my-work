@@ -3,8 +3,8 @@ package com.bskyb.db.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -16,7 +16,7 @@ public class Book extends Publication {
 
 	private Integer pages;
 
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "publicationbook", 
 		joinColumns = { 
 			@JoinColumn(name = "bookid", referencedColumnName = "id") 

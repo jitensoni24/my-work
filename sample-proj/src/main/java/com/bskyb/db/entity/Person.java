@@ -2,10 +2,12 @@ package com.bskyb.db.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -25,7 +27,7 @@ public abstract class Person extends Identity {
 	
 	private Integer age;
 	
-	@OneToMany(mappedBy = "person")
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Address> address;
 
 	@ManyToOne
@@ -70,5 +72,10 @@ public abstract class Person extends Identity {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", sex=" + sex + ", age=" + age + "]";
 	}
 }

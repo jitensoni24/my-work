@@ -41,7 +41,7 @@ public class PersistenceConfig {
         properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql", "false"));
         properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql", "false"));
         properties.setProperty("hibernate.id.new_generator_mappings", "false");
-        properties.setProperty("hibernate.hbm2ddl.import_files_sql_extractor", env.getProperty("hibernate.hbm2ddl.import_files_sql_extractor", ""));
+        //properties.setProperty("hibernate.hbm2ddl.import_files_sql_extractor", env.getProperty("hibernate.hbm2ddl.import_files_sql_extractor", ""));
         //properties.setProperty("hibernate.hbm2ddl.import_files", env.getProperty("hibernate.hbm2ddl.import_files", ""));
 
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
