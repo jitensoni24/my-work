@@ -84,7 +84,7 @@ public abstract class IntegrationTest {
     	Author dba1 = em.merge(author1);
     	this.author = dba1;
     	Author dba2 = em.merge(author2);
-    	Author dba3 = em.merge(author3);
+    	/*Author dba3 = */em.merge(author3);
     	em.flush();
     	
     	
