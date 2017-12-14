@@ -7,16 +7,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Element {
 	
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne
+    private Element parent;
+	
 	public Long getId() {
 		return id;
 	}
@@ -33,6 +37,14 @@ public abstract class Element {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Element getParent() {
+		return parent;
+	}
+
+	public void setParent(Element parent) {
+		this.parent = parent;
 	}
 
 	@Override

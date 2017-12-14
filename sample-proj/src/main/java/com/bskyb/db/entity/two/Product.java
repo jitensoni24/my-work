@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,10 +18,11 @@ public class Product extends Identity {
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable ( name = "product_element",
+	@JoinColumns(@JoinColumn(name = "product_id", referencedColumnName = "id"))
+	/*@JoinTable ( name = "product_element",
 			joinColumns = @JoinColumn(name = "p_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "element_id", referencedColumnName = "id")
-	)
+	)*/
 	private List<Element> elements;
 
 	public String getCode() {
