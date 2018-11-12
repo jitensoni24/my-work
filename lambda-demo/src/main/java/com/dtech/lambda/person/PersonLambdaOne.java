@@ -49,8 +49,6 @@ public class PersonLambdaOne {
 			.stream()
 			.collect(groupingBy(Person::getName, mapping(Person::getAge, toList())));
 		
-		System.out.println(mapOfPerson);
-		
-		
+		System.out.println(mapOfPerson);	
 	}
 }
