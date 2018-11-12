@@ -40,7 +40,6 @@ public class PersonLambdaOne {
 		System.out.println("name of first female : " + femaleName);
 		System.out.println("---------------------persons female name filtered above ---------------------------------");
 		
-		
 		//given a list of people
 		//create a map with name as the key and all the people as its value
 		//eg stuart -> {id: 3 object and id : 6 obj}
