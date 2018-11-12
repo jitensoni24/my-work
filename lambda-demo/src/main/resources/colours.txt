@@ -1,0 +1,8 @@
+red
+blue
+green
+black
+light-red
+light-blue
+light-green
+dark-black

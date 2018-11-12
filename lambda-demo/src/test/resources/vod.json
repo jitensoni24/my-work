@@ -1,0 +1,16 @@
+{
+	"bookmark": "SPORTS_1",
+	"nodeid": "A1",
+	"childnodes": [
+		{
+			"title": "vod title 1",
+			"id": 1234,
+			"channels" : [111, 222]
+		},
+		{
+			"title": "vod title 2",
+			"id": 2,
+			"channels" : [222, 333]
+		}
+	]
+}

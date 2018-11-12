@@ -1,0 +1,38 @@
+[
+   {
+      "id": 1,
+      "name": "paul",
+      "gender": "MALE",
+      "age": 35
+   },
+   {
+      "id": 2,
+      "name": "paul",
+      "gender": "MALE",
+      "age": 75
+   },
+   {
+      "id": 3,
+      "name": "stuart",
+      "gender": "MALE",
+      "age": 30
+   },
+   {
+      "id": 4,
+      "name": "jhon",
+      "gender": "MALE",
+      "age": 25
+   },
+   {
+      "id": 5,
+      "name": "bini",
+      "gender": "FEMALE",
+      "age": 18
+   },
+   {
+      "id": 6,
+      "name": "stuart",
+      "gender": "MALE",
+      "age": 47
+   }
+]
